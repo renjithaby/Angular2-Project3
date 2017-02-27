@@ -1,0 +1,30 @@
+<p>
+  expense-summary works!
+</p>
+<div class="panel panel-default">
+    <h3> Expense Summary</h3>
+    <div class="panel-body">
+        <table class="table">
+
+        <tbody>
+        <tr>
+            <td> Total Expenses</td>
+            <td>{{totalExpense}}</td>
+            <td> <button type="button" class="btn btn-info btn-xs" data-toggle="collapse" data-target="#detail">Details</button></td>
+
+        </tr>
+        </tbody>
+    </table>
+
+    </div>
+
+    <div  id="detail" class="collapse table-responsive">
+            <table class="table">
+                <tr *ngFor ="let item of expenseSummary let i = index" [attr.data-index]="i">
+                    <td>{{i+1}})</td>
+                    <td>{{item.category}}</td>
+                    <td>{{item.value}}</td>
+                </tr>
+            </table>
+    </div>
+</div>
