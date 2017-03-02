@@ -1,6 +1,18 @@
-<p>
-  expense-summary works!
-</p>
+
+<ul class="nav nav-tabs">
+    <li>
+        <a (click) = "onClick($event)" id = "monthly"  routerLink="expenseSummary/monthly" routerLinkActive="active">Monthly</a>
+    </li>
+    <li>
+        <a  (click) = "onClick($event)" id = "weekly" routerLink="addExpense/weekly" routerLinkActive="active">Weekly</a>
+    </li>
+    <li>
+        <a (click) = "onClick($event)"  id = "daily" routerLink="budgetSummary/daily" routerLinkActive="active">Daily</a>
+    </li>
+
+</ul>
+
+
 <div class="panel panel-default">
     <h3> Expense Summary</h3>
     <div class="panel-body">

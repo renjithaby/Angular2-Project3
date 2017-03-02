@@ -10,10 +10,15 @@ import { ExpenseSummaryComponent } from './expense-summary/expense-summary.compo
 import { MainNavigationComponent } from './main-navigation/main-navigation.component';
 import { AddExpenseComponent } from './add-expense/add-expense.component';
 
+import { DatePipe } from '@angular/common';
+import {MainService} from './main.service';
+
 const routes :Routes = <Routes>[
 
     {path: 'Home', component: ExpenseSummaryComponent},
     {path: 'addExpense', component: AddExpenseComponent},
+    {path: 'expenseSummary', component: ExpenseSummaryComponent},
+    {path: 'expenseSummary/:id', component: ExpenseSummaryComponent},
     /*{path: 'FreshFruits/:type', component: ItemsListComponent},
     /*{path: 'Apples', component: ItemsListComponent,data: { value: 'Apples' }},
      {path: 'Banana', component: ItemsListComponent,data: { value: 'Banana' }},
@@ -40,7 +45,7 @@ const routes :Routes = <Routes>[
     HttpModule,
     RouterModule.forRoot(routes,{useHash : true})
   ],
-  providers: [],
+  providers: [DatePipe,MainService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

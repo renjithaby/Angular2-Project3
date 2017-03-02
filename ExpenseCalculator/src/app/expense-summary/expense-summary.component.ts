@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {MainService} from '../main.service';
+import {ActivatedRoute,Router} from '@angular/router';
 
 @Component({
   selector: 'app-expense-summary',
@@ -6,36 +8,26 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./expense-summary.component.css']
 })
 export class ExpenseSummaryComponent implements OnInit {
-    private expenseSummary:Object;
+    private expenseSummary:Object[];
     private totalExpense:number;
-  constructor() { }
+    private summaryType: string = "monthly";
+
+    constructor(private mainService:MainService, private route : ActivatedRoute,private router : Router) {
+
+    }
 
 
-  ngOnInit() {
-      this.totalExpense = "200";
-      this.expenseSummary = [{
+    ngOnInit() {
+        this.totalExpense = "200";
+        this.expenseSummary = this.mainService.getExpenseSummary();
+        this.route.params.subscribe(params => {this.summaryType = params; console.log(params)});
+    }
 
-          category:"a",
-          value :"100"
-      },
-      {
+    onClick(event){
+        console.log(event.target.id);
+        this.router.navigate(['expenseSummary',event.target.id]);
 
-          category:"b",
-          value :"10"
-      },
-      {
-
-          category:"c",
-          value :"20"
-      },
-      {
-
-          category:"d",
-          value :"30"
-      }
-      ]
-  }
-
+    }
 
 
 }
