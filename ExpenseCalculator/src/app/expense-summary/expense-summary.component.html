@@ -1,17 +1,39 @@
 
 <ul class="nav nav-tabs">
-    <li>
-        <a (click) = "onClick($event)" id = "monthly"  routerLink="expenseSummary/monthly" routerLinkActive="active">Monthly</a>
+    <li   (click) = "onClick($event)"  routerLinkActive="active" routerLink ="/expenseSummary/monthly" >
+        <a id = "monthly" >Monthly</a>
     </li>
-    <li>
-        <a  (click) = "onClick($event)" id = "weekly" routerLink="addExpense/weekly" routerLinkActive="active">Weekly</a>
+    <li   (click) = "onClick($event)" routerLink="/expenseSummary/weekly" routerLinkActive="active" [routerLinkActiveOptions]="{exact: false}">
+        <a id = "weekly">Weekly</a>
     </li>
-    <li>
-        <a (click) = "onClick($event)"  id = "daily" routerLink="budgetSummary/daily" routerLinkActive="active">Daily</a>
+    <li  (click) = "onClick($event)"  routerLink="/expenseSummary/daily" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+        <a id = "daily">Daily</a>
     </li>
 
 </ul>
 
+
+<div *ngIf="summaryType == 'daily'" class="form-group">
+    <label class="center-block"> Please select a date:
+        <p-calendar (onSelect)="onSelect(value)"  dateFormat="dd.mm.yy" readonlyInput="readonlyInput" [formControl]="dayControl"></p-calendar>
+        {{selectedDate}}
+    </label>
+</div>
+
+<div *ngIf="summaryType == 'monthly'" class="form-group">
+         <label class="center-block">Please select a month:
+            <select (onSelect)="onSelect(value)" class="form-control" >
+                <option *ngFor="let category of categories" [value]="category.name">{{category.name}}</option>
+            </select>
+        </label>
+</div>
+
+<div *ngIf="summaryType == 'weekly'" class="form-group">
+      <label class="center-block"> Please select a day:
+        <p-calendar (onSelect)="onSelect(value)"  dateFormat="dd.mm.yy" readonlyInput="readonlyInput" ></p-calendar>
+        {{selectedDate}}
+    </label>
+</div>
 
 <div class="panel panel-default">
     <h3> Expense Summary</h3>

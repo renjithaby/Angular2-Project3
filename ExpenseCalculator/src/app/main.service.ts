@@ -69,10 +69,11 @@ export class MainService {
         return this.selectedDateData;
     }
 
-    getExpenseSummary():Object[]{
+    getExpenseSummary(type:string):Object[]{
         for(let j =0 ; j< this.expenseSummary.length; j++) {
             this.expenseSummary[j].value = 0;
             for (let i = 0; i < this.expenseData.length; i++) {
+
                 if (this.expenseData[i].category === this.expenseSummary[j].category) {
                     this.expenseSummary[j].value += Number(this.expenseData[i].value);
                 }
