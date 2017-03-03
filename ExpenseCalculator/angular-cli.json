@@ -21,7 +21,8 @@
         "styles.css",
         "assets/stylesheets/bootstrap.min.css",
         "../node_modules/primeng/resources/themes/omega/theme.css",
-        "../node_modules/primeng/resources/primeng.min.css"
+        "../node_modules/primeng/resources/primeng.min.css",
+        "assets/stylesheets/font-awesome.min.css"
       ],
       "scripts": [
         "assets/js/jquery-1.12.3.min.js",

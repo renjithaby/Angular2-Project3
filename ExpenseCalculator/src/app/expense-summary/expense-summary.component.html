@@ -12,28 +12,30 @@
 
 </ul>
 
-
+<form [formGroup] = "summarySelectorForm"   novalidate>
 <div *ngIf="summaryType == 'daily'" class="form-group">
     <label class="center-block"> Please select a date:
-        <p-calendar (onSelect)="onSelect(value)"  dateFormat="dd.mm.yy" readonlyInput="readonlyInput" [formControl]="dayControl"></p-calendar>
+        <p-calendar  (onSelect)="onSelect(value)"  dateFormat="dd.mm.yy" readonlyInput="readonlyInput" formControlName="day"> </p-calendar>
         {{selectedDate}}
     </label>
 </div>
 
 <div *ngIf="summaryType == 'monthly'" class="form-group">
          <label class="center-block">Please select a month:
-            <select (onSelect)="onSelect(value)" class="form-control" >
-                <option *ngFor="let category of categories" [value]="category.name">{{category.name}}</option>
+            <select (change)="onSelect(value)" class="form-control" formControlName ="month">
+                <option *ngFor="let month of months" [value]="month.value" >{{month.name}}</option>
             </select>
         </label>
 </div>
 
 <div *ngIf="summaryType == 'weekly'" class="form-group">
-      <label class="center-block"> Please select a day:
-        <p-calendar (onSelect)="onSelect(value)"  dateFormat="dd.mm.yy" readonlyInput="readonlyInput" ></p-calendar>
+      <label class="center-block"> Please select week start date:
+        <p-calendar (onSelect)="onSelect(value)"  dateFormat="dd.mm.yy" readonlyInput="readonlyInput" formControlName ="weekStart"> </p-calendar>
         {{selectedDate}}
     </label>
 </div>
+
+</form>
 
 <div class="panel panel-default">
     <h3> Expense Summary</h3>

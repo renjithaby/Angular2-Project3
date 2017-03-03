@@ -36,15 +36,15 @@ export class AddExpenseComponent implements OnInit {
     });
   }
   onSubmit() {
-      this.newItem =  new ExpenseItem(this.datePipe.transform(this.addExpenseForm.value.date, 'yyyy-MM-dd'),
+      this.newItem =  new ExpenseItem(this.datePipe.transform(this.addExpenseForm.value.date, 'dd-MM-yyyy'),
           this.addExpenseForm.value.category,
           this.addExpenseForm.value.value);
-          console.log(this.newItem.value);
+          console.log(this.newItem.date);
       this.mainService.addToExpenseData(this.newItem);
       this.updateSelectedDateData();
   }
     onSelect(value){
-       this.selectedDate = this.datePipe.transform(this.addExpenseForm.value.date, 'yyyy-MM-dd');
+       this.selectedDate = this.datePipe.transform(this.addExpenseForm.value.date, 'dd-MM-yyyy');
         this.updateSelectedDateData();
     }
 
