@@ -12,6 +12,22 @@ import { AddExpenseComponent } from './add-expense/add-expense.component';
 
 import { DatePipe } from '@angular/common';
 import {MainService} from './main.service';
+import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
+
+
+const firebaseConfig = {
+    apiKey: "AIzaSyDf3EYDdRDc0JAbVwLqqyPH-kmZCTM3cgo",
+    authDomain: "angular2project3.firebaseapp.com",
+    databaseURL: "https://angular2project3.firebaseio.com",
+    storageBucket: "angular2project3.appspot.com",
+    messagingSenderId: "890945528507"
+};
+
+const firebaseAuthConfig = {
+    provider: AuthProviders.Google,
+    method: AuthMethods.Redirect
+};
+
 
 const routes :Routes = <Routes>[
 
@@ -41,9 +57,11 @@ const routes :Routes = <Routes>[
     BrowserModule,
     CalendarModule,
     FormsModule,
-      ReactiveFormsModule,
+    ReactiveFormsModule,
     HttpModule,
-    RouterModule.forRoot(routes,{useHash : true})
+    RouterModule.forRoot(routes,{useHash : true}),
+    AngularFireModule.initializeApp( firebaseConfig,firebaseAuthConfig)
+
   ],
   providers: [DatePipe,MainService],
   bootstrap: [AppComponent]

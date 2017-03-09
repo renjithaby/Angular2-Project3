@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
 import {ExpenseItem} from './expense.item';
+import { AngularFire, FirebaseListObservable } from 'angularfire2';
+import 'rxjs/add/operator/map';
+
 @Injectable()
 export class MainService {
   private expenseCategories:Object[];
@@ -7,9 +10,12 @@ export class MainService {
   private expenseData: ExpenseItem[] = [];
   private selectedDateData: ExpenseItem[] = [];
   private num:Object[] = [{mynum:1}];
-  constructor() {
+  private users: FirebaseListObservable< any[]>;
+  constructor(private af : AngularFire) {
 
       this.initailise();
+      this.users = af.database.object("/Users");
+      console.log(this.users);
   }
     expenseCategories = [
     {
@@ -36,6 +42,7 @@ export class MainService {
         for (let i = 0; i < this.expenseCategories.length; i++) {
             this.expenseSummary.push({category: this.expenseCategories[i].name, value: 0});
         }
+
     }
 
     getTotalNum():Object[] {
@@ -44,6 +51,7 @@ export class MainService {
     }
 
     getExpenseData():ExpenseItem[]{
+        console.log(this.users.expenseData);
         return this.expenseData;
     }
     getExpenseCategories():Object[]{
@@ -52,6 +60,7 @@ export class MainService {
     addToExpenseData(item:ExpenseItem){
         this.expenseData.push(item);
         this.num[0].mynum +=1;
+        console.log(this.af.database.list("Users"));
     }
 
     removeFromExpenseData(item:ExpenseItem){

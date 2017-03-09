@@ -44,6 +44,7 @@ export class AddExpenseComponent implements OnInit {
       this.updateSelectedDateData();
   }
     onSelect(value){
+        //this.addExpenseForm.controls['value'].setValue( "helloooo");
        this.selectedDate = this.datePipe.transform(this.addExpenseForm.value.date, 'dd-MM-yyyy');
         this.updateSelectedDateData();
     }

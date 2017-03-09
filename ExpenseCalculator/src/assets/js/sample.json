@@ -1,0 +1,9 @@
+[{
+  "userID": "eq4d7MsvHbUV5uey6piZt47wndy2",
+  "displayName": "Renjith Abby",
+  "expenseData":[ {
+    "category": "petrol",
+    "date": "01-03-2017",
+    "value": "100"
+  }]
+}]

@@ -1,7 +1,7 @@
 import { Component, OnInit, OnChanges } from '@angular/core';
 import {MainService} from '../main.service';
 import {ActivatedRoute,Router} from '@angular/router';
-import { FormBuilder, FormGroup, Validators,FormControl} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators,FormControl,ReactiveFormsModule} from '@angular/forms';
 import { DatePipe } from '@angular/common';
 
 @Component({
@@ -47,7 +47,7 @@ export class ExpenseSummaryComponent implements OnInit {
     ngOnInit() {
     console.log("calling ng on init.....");
 
-        this.totalExpense = "200";
+        this.totalExpense = 0;
        // this.expenseSummary = this.mainService.getExpenseSummary();
         this.route.params.subscribe(params => {this.summaryType = params.id; console.log(params)});
 
@@ -62,6 +62,7 @@ export class ExpenseSummaryComponent implements OnInit {
         console.log(event.target);
         this.router.navigate(['expenseSummary',event.target.id]);
         this.expenseSummary = [];
+        this.totalExpense = 0;
         this.summarySelectorForm.reset();
         /*this.summarySelectorForm.value.day = "";
         this.summarySelectorForm.value.month = "";
@@ -70,6 +71,8 @@ export class ExpenseSummaryComponent implements OnInit {
     }
 
     onSelect(){
+
+
     let value;
     switch(this.summaryType){
         case "monthly":
@@ -82,26 +85,33 @@ export class ExpenseSummaryComponent implements OnInit {
          value = this.datePipe.transform(this.summarySelectorForm.value.day, 'dd-MM-yyyy');
         break;
     }
-
+        this.expenseSummary = [];
+        this.totalExpense = 0;
       console.log(this.summarySelectorForm.value.month);
       console.log(this.summarySelectorForm.value.weekStart);
       console.log(this.summarySelectorForm.value.day);
       this.expenseSummary = this.mainService.getExpenseSummary(this.summaryType,value);
+
+        this.calculateTotalExpense();
         console.log(this.summaryType);
 
     }
 
     onChange(value){
-    console.log("on chnage...");
-     console.log(value);
+        console.log("on chnage...");
+        console.log(value);
     }
 
-    getMonthValue(value){
-        for (let i=0; i< this.months.length; i++){
-            if(this.months[i].name === value)
-             return this.months[i].value;
+
+    calculateTotalExpense(){
+        for(let i = 0; i< this.expenseSummary.length;i++){
+            this.totalExpense += this.expenseSummary[i].value;
         }
+
+
     }
+
+
 
 
 }
