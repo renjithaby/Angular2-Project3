@@ -49,8 +49,8 @@ export class ExpenseSummaryComponent implements OnInit {
 
         this.totalExpense = 0;
        // this.expenseSummary = this.mainService.getExpenseSummary();
-        this.route.params.subscribe(params => {this.summaryType = params.id; console.log(params)});
-
+        this.route.params.subscribe(params => {this.summaryType = params.id;});
+        console.log(this.summaryType );
     }
 
     ngOnChanges(changes) {
@@ -73,7 +73,7 @@ export class ExpenseSummaryComponent implements OnInit {
     onSelect(){
 
 
-    let value;
+    let value ="";
     switch(this.summaryType){
         case "monthly":
         value = this.summarySelectorForm.value.month;

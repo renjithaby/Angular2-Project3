@@ -1,8 +1,13 @@
+<ul> <li *ngFor ="let item of items | async">
 
+    {{item.$value}}
+</li>
+</ul>
 
 <div> {{ (af.auth | async)?.auth.displayName }} </div>
 <button (click)="login()">Login</button>
 <button (click)="logout()">Logout</button>
 <app-main-navigation> </app-main-navigation>
+
 <router-outlet></router-outlet>
 

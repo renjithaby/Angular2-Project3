@@ -11,7 +11,7 @@ import {MainService} from '../main.service';
 })
 export class AddExpenseComponent implements OnInit {
     private addExpenseForm: FormGroup;
-    private categories:Array;
+    private categories:Object[];
     private selectedDate : string;
     private newItem : ExpenseItem;
     private expenseData : ExpenseItem[] = [];
