@@ -14,6 +14,7 @@ export class ExpenseSummaryComponent implements OnInit {
     private totalExpense:number;
     private summaryType: string = "monthly";
     private summarySelectorForm: FormGroup;
+    private users ;
     private  months = [
         {name:"January",value :"01"},
         {name:"February",value :"02"},
@@ -67,6 +68,11 @@ export class ExpenseSummaryComponent implements OnInit {
         /*this.summarySelectorForm.value.day = "";
         this.summarySelectorForm.value.month = "";
         this.summarySelectorForm.value.weekStart = "";*/
+        this.mainService.getData().subscribe(item =>{console.log(item);
+
+        });
+
+        this.mainService.addData() ;
 
     }
 

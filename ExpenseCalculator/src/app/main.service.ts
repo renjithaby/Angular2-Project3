@@ -14,7 +14,15 @@ export class MainService {
   constructor(private af : AngularFire) {
 
       this.initailise();
-      this.users = af.database.object('https://angular2project3.firebaseio.com/Items');
+
+      /* af.database.object('https://angular2project3.firebaseio.com/Items').subscribe(value =>{
+            console.log(value);
+            this.users = value;
+
+            //this.users[0].set("items,,,");
+        });*/
+
+     // this.users = af.database.object('https://angular2project3.firebaseio.com/Items');
       console.log(this.users);
   }
     expenseCategories = [
@@ -43,6 +51,16 @@ export class MainService {
             this.expenseSummary.push({category: this.expenseCategories[i].name, value: 0});
         }
 
+    }
+
+    getData(){
+        this.users =  this.af.database.list("/Items") as FirebaseObjectObservable<any[]>;
+
+       console.log(this.users);
+       return this.users;
+    }
+    addData() {
+         return this.users.push({"66":"rRR"});
     }
 
     getTotalNum():Object[] {

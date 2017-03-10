@@ -6,22 +6,32 @@ import { AngularFire, FirebaseObjectObservable } from 'angularfire2';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-    //private user;
+    private user;
     //private users ={};
     private users: FirebaseObjectObservable< any[]>;
 
     constructor(public af: AngularFire){
-        this.users = af.database.object('https://angular2project3.firebaseio.com/Items');
-        //console.log(this.users);
-       /* this.af.auth.subscribe(user => {
+   this.users =  this.af.database.list("/Items") as FirebaseObjectObservable<any[]>;
+    //this.users =  af.database.object("/Items");
+       // console.log(this.users);
+      //  console.log(af.database.object);
+       // this.users = af.database.object('https://angular2project3.firebaseio.com/Items');
+       // console.log(this.users);
+       /* af.database.object('https://angular2project3.firebaseio.com/Items').subscribe(value =>{
+            console.log(value);
+            this.users = value;
+        });*/
+
+        this.af.auth.subscribe(user => {
             if (user) {
                 // user logged in
                 this.user = user;
                 console.log(this.user);
                 //this.af.database.list('angular2project3').push(this.users);
                // console.log(this.af.database.list('angular2project3'));
+               this.users.push({"id":this.user.uid,"name": "RENJITH ABBY"});
             }
-        });*/
+        });
     }
     title = 'app works!!';
     login() {
