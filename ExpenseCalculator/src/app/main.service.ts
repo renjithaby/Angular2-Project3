@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {ExpenseItem} from './expense.item';
-import { AngularFire, FirebaseObjectObservable } from 'angularfire2';
+import { AngularFire, FirebaseListObservable } from 'angularfire2';
 import 'rxjs/add/operator/map';
 
 @Injectable()
@@ -10,7 +10,10 @@ export class MainService {
   private expenseData: ExpenseItem[] = [];
   private selectedDateData: ExpenseItem[] = [];
   private num:Object[] = [{mynum:1}];
-  private users: FirebaseObjectObservable< any[]>;
+  private users: FirebaseListObservable< any[]>;
+  private currentUser :Object;
+  private userData : Object;
+  private userKey :String;
   constructor(private af : AngularFire) {
 
       this.initailise();
@@ -53,14 +56,30 @@ export class MainService {
 
     }
 
-    getData(){
-        this.users =  this.af.database.list("/Items") as FirebaseObjectObservable<any[]>;
+    setCurrentUser(user: Array){
+        console.log(user);
+        this.currentUser = user;
+        console.log("im setting the user,,,...");
+        console.log(this.currentUser);
+    }
 
-       console.log(this.users);
+    getUser(uid :string){
+        console.log(uid);
+        this.users =  this.af.database.list('/Items',{
+            query: {
+                orderByChild: 'id',
+                equalTo:  uid
+            }
+        });
+
+        this.users.subscribe(value => {this.userData = value[0];})
+
+        console.log(this.users);
        return this.users;
     }
-    addData() {
-         return this.users.push({"66":"rRR"});
+
+    addUser(user:Object){
+        this.users.push(user);
     }
 
     getTotalNum():Object[] {
@@ -69,16 +88,18 @@ export class MainService {
     }
 
     getExpenseData():ExpenseItem[]{
-        //console.log(this.users.expenseData);
+        this.expenseData = this.userData.expenseData;
         return this.expenseData;
     }
     getExpenseCategories():Object[]{
         return this.expenseCategories;
     }
     addToExpenseData(item:ExpenseItem){
+        console.log("adding to expense data");
         this.expenseData.push(item);
         this.num[0].mynum +=1;
-        console.log(this.af.database.list("Users"));
+        this.users.update(this.userData.$key,{expenseData :this.expenseData}); //{
+
     }
 
     removeFromExpenseData(item:ExpenseItem){
@@ -99,6 +120,7 @@ export class MainService {
     getExpenseSummary(type:string, value:string):Object[]{
         console.log("my value...");
         console.log(value);
+        this.expenseData = this.getExpenseData();
         let filteredData :ExpenseItem[] = [];
         if(type == "daily") {
             for (let i = 0; i < this.expenseData.length; i++) {

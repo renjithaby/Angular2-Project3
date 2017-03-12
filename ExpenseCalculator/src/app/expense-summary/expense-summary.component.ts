@@ -65,15 +65,6 @@ export class ExpenseSummaryComponent implements OnInit {
         this.expenseSummary = [];
         this.totalExpense = 0;
         this.summarySelectorForm.reset();
-        /*this.summarySelectorForm.value.day = "";
-        this.summarySelectorForm.value.month = "";
-        this.summarySelectorForm.value.weekStart = "";*/
-        this.mainService.getData().subscribe(item =>{console.log(item);
-
-        });
-
-        this.mainService.addData() ;
-
     }
 
     onSelect(){

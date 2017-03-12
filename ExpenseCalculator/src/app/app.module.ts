@@ -13,6 +13,7 @@ import { AddExpenseComponent } from './add-expense/add-expense.component';
 import { DatePipe } from '@angular/common';
 import {MainService} from './main.service';
 import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
+import { HomeComponent } from './home/home.component';
 
 
 const firebaseConfig = {
@@ -31,7 +32,7 @@ const firebaseAuthConfig = {
 
 const routes :Routes = <Routes>[
 
-    {path: 'Home', component: ExpenseSummaryComponent},
+    {path: 'Home', component: HomeComponent},
     {path: 'addExpense', component: AddExpenseComponent},
     {path: 'expenseSummary', component: ExpenseSummaryComponent},
     {path: 'expenseSummary/:id', component: ExpenseSummaryComponent},
@@ -51,7 +52,8 @@ const routes :Routes = <Routes>[
     AppComponent,
     ExpenseSummaryComponent,
     MainNavigationComponent,
-    AddExpenseComponent
+    AddExpenseComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

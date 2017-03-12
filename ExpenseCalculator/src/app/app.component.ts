@@ -1,5 +1,7 @@
 import { Component} from '@angular/core';
-import { AngularFire, FirebaseObjectObservable } from 'angularfire2';
+import { AngularFire, FirebaseListObservable } from 'angularfire2';
+import {Router} from '@angular/router';
+import {MainService} from './main.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -8,10 +10,10 @@ import { AngularFire, FirebaseObjectObservable } from 'angularfire2';
 export class AppComponent {
     private user;
     //private users ={};
-    private users: FirebaseObjectObservable< any[]>;
+    private users: FirebaseListObservable< any[]>;
 
-    constructor(public af: AngularFire){
-   this.users =  this.af.database.list("/Items") as FirebaseObjectObservable<any[]>;
+    constructor(public af: AngularFire , private router : Router,private mainService : MainService){
+   //this.users =  this.af.database.list("/Items") as FirebaseListObservable<any[]>;
     //this.users =  af.database.object("/Items");
        // console.log(this.users);
       //  console.log(af.database.object);
@@ -27,9 +29,19 @@ export class AppComponent {
                 // user logged in
                 this.user = user;
                 console.log(this.user);
-                //this.af.database.list('angular2project3').push(this.users);
-               // console.log(this.af.database.list('angular2project3'));
-               this.users.push({"id":this.user.uid,"name": "RENJITH ABBY"});
+                this.router.navigate(['Home']);
+                this.mainService.setCurrentUser(this.user);
+                this.mainService.getUser(this.user.uid).subscribe(value =>
+                {
+                    this.users = value;
+                    console.log(this.users[0]);
+                    if(this.users.length == 0){
+                        this.mainService.addUser({"id": this.user.uid, "names": this.user.auth.displayName});
+                    }
+                });
+            }else{
+                this.user = null;
+                console.log(this.user);
             }
         });
     }
@@ -39,8 +51,6 @@ export class AppComponent {
         this.af.auth.login();
     }
 
-    logout() {
-        this.af.auth.logout();
-    }
+
 
 }

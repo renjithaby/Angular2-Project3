@@ -1,13 +1,15 @@
+<div *ngIf="!user">
+<button (click)="login()">Login</button>
+<div *ngIf = af.auth> <h3> Welcome {{ (af.auth | async)?.auth.displayName }}</h3> </div>
+
 <ul> <li *ngFor ="let item of users | async">
 
     {{item}}
 </li>
 </ul>
-
-<div> {{ (af.auth | async)?.auth.displayName }} </div>
-<button (click)="login()">Login</button>
-<button (click)="logout()">Logout</button>
-<app-main-navigation> </app-main-navigation>
+ </div>
+<app-main-navigation *ngIf="user"> </app-main-navigation>
 
 <router-outlet></router-outlet>
+
 
